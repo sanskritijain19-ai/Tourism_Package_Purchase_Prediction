@@ -10,14 +10,15 @@ from huggingface_hub import login, HfApi
 
 # Define constants for the dataset and output paths
 #api = HfApi(token=os.getenv("HF_TOKEN"))
-token = os.getenv("HF_TOKEN")
+token = os.environ.get("HF_TOKEN")
 
-# Clean token (THIS FIXES YOUR ERROR)
 if token:
     token = token.strip()
+    token = token.replace("\n", "").replace("\r", "")
 
-login(token=token)   # login explicitly
-api = HfApi(token=token)
+login(token=token)
+api = HfApi()
+
 DATASET_PATH = "hf://datasets/sanskritijain27/tourism-package-purchase-prediction/tourism.csv"
 bank_dataset = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")

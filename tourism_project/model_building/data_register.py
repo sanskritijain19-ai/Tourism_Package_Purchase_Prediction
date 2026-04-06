@@ -7,8 +7,15 @@ repo_id = "sanskritijain27/tourism-package-purchase-prediction"
 repo_type = "dataset"
 
 # Initialize API client
-api = HfApi(token=os.getenv("HF_TOKEN"))
+#api = HfApi(token=os.getenv("HF_TOKEN"))
+token = os.environ.get("HF_TOKEN")
 
+if token:
+    token = token.strip()
+    token = token.replace("\n", "").replace("\r", "")
+
+login(token=token)
+api = HfApi()
 # Step 1: Check if the space exists
 try:
     api.repo_info(repo_id=repo_id, repo_type=repo_type)
