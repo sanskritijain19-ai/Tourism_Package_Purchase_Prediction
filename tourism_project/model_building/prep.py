@@ -9,7 +9,15 @@ from sklearn.model_selection import train_test_split
 from huggingface_hub import login, HfApi
 
 # Define constants for the dataset and output paths
-api = HfApi(token=os.getenv("HF_TOKEN"))
+#api = HfApi(token=os.getenv("HF_TOKEN"))
+token = os.getenv("HF_TOKEN")
+
+# Clean token (THIS FIXES YOUR ERROR)
+if token:
+    token = token.strip()
+
+login(token=token)   # login explicitly
+api = HfApi(token=token)
 DATASET_PATH = "hf://datasets/sanskritijain27/tourism-package-purchase-prediction/tourism.csv"
 bank_dataset = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
