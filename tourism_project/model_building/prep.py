@@ -23,31 +23,45 @@ DATASET_PATH = "hf://datasets/sanskritijain27/tourism-package-purchase-predictio
 bank_dataset = pd.read_csv(DATASET_PATH)
 print("Dataset loaded successfully.")
 
+df = bank_dataset.copy()
+
+# Drop identifier columns
+df.drop(columns=['Unnamed: 0', 'CustomerID'], inplace=True)
+
 # Define the target variable for the classification task
-target = 'Exited'
+target = 'ProdTaken'
 
 # List of numerical features in the dataset
 numeric_features = [
-    'CreditScore',       # Customer's credit score
-    'Age',               # Customer's age
-    'Tenure',            # Number of years the customer has been with the bank
-    'Balance',           # Customer’s account balance
-    'NumOfProducts',     # Number of products the customer has with the bank
-    'HasCrCard',         # Whether the customer has a credit card (binary: 0 or 1)
-    'IsActiveMember',    # Whether the customer is an active member (binary: 0 or 1)
-    'EstimatedSalary'    # Customer’s estimated salary
+    'Age',               
+    'DurationOfPitch',   
+    'NumberOfPersonVisiting',
+    'NumberOfFollowups',
+    'PreferredPropertyStar',
+    'NumberOfTrips',     
+    'PitchSatisfactionScore',
+    'NumberOfChildrenVisiting',
+    'MonthlyIncome'      
 ]
 
 # List of categorical features in the dataset
 categorical_features = [
-    'Geography',         # Country where the customer resides
+    'TypeofContact',
+    'CityTier',
+    'Occupation',        
+    'Gender',            
+    'ProductPitched',    
+    'MaritalStatus',     
+    'Passport',          
+    'OwnCar',
+    'Designation'
 ]
 
 # Define predictor matrix (X) using selected numeric and categorical features
-X = bank_dataset[numeric_features + categorical_features]
+X = df[numeric_features + categorical_features]
 
 # Define target variable
-y = bank_dataset[target]
+y = df[target]
 
 
 # Split dataset into train and test
