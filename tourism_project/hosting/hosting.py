@@ -1,4 +1,4 @@
-from huggingface_hub import HfApi
+from huggingface_hub import HfApi, login
 import os
 
 #api = HfApi(token=os.getenv("HF_TOKEN"))
